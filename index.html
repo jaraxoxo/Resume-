@@ -12,6 +12,7 @@
             --cyber-gray: #121212;
             --cyber-orange: #ff8c00;
             --cyber-border: #1a1a1a;
+            --cyber-red: #ff3333;
         }
 
         body {
@@ -23,6 +24,7 @@
                 linear-gradient(rgba(255, 140, 0, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 140, 0, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 30px 30px, 30px 30px;
+            overflow-x: hidden;
         }
 
         .cyber-font {
@@ -92,6 +94,37 @@
             transform: scale(1.05);
         }
 
+        /* Security Alert Overlay */
+        #security-alert {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 0, 0, 0.2);
+            z-index: 999;
+            pointer-events: none;
+            border: 10px solid var(--cyber-red);
+            animation: flash 0.5s infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .security-dashboard {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            font-family: monospace;
+            font-size: 10px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--cyber-orange);
+            padding: 10px;
+            color: var(--cyber-orange);
+            pointer-events: none;
+        }
+
         /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 5px;
@@ -105,6 +138,17 @@
     </style>
 </head>
 <body class="p-4 md:p-12">
+
+    <div id="security-alert"></div>
+
+    <div class="security-dashboard cyber-card">
+        <div class="flex items-center gap-2 mb-1">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+            <span>FIREWALL: ACTIVE</span>
+        </div>
+        <div id="traffic-monitor">TRAFFIC: NORMAL</div>
+        <div id="threat-level">THREAT_LEVEL: NULL</div>
+    </div>
 
     <div class="max-w-5xl mx-auto">
         <!-- Header Section -->
@@ -131,14 +175,13 @@
                         <div class="profile-frame rounded-sm w-full max-w-[280px]">
                             <img 
                                 src="https://very-maroon-rzjwfbhtvp.edgeone.app/c592f105-7906-4eed-a093-16aeec3071f2.jpg" 
-                                alt="" 
+                                alt="Profile" 
                                 class="profile-img"
                             />
                             <!-- Decoration Corners -->
                             <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-orange-500"></div>
                             <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-orange-500"></div>
                             
-                            <!-- Scanning line effect simulation -->
                             <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-orange-500/10 to-transparent h-2 w-full animate-pulse"></div>
                         </div>
                     </div>
@@ -156,7 +199,7 @@
                     <ul class="text-xs space-y-4 font-mono">
                         <li class="flex flex-col gap-1">
                             <span class="text-orange-900 text-[10px]">EMAIL:</span> 
-                            <span class="text-gray-300">TESTWeb@GMAIL.COM</span>
+                            <span class="text-gray-300">NV6969GOG@GMAIL.COM</span>
                         </li>
                         <li class="flex flex-col gap-1">
                             <span class="text-orange-900 text-[10px]">SIGNAL:</span> 
@@ -207,10 +250,10 @@
                             <div class="flex flex-wrap gap-2">
                                 <span class="skill-tag px-2 py-1 font-mono uppercase">ซ่อมคอมพิวเตอร์</span>
                                 <span class="skill-tag px-2 py-1 font-mono uppercase">ติดตั้งโปรแกรม</span>
-                                <span class="skill-tag px-2 py-1 font-mono uppercase">กำจัด Virus/Trojan</span>
+                                <span class="skill-tag px-2 py-1 font-mono uppercase">Network Security</span>
                                 <span class="skill-tag px-2 py-1 font-mono uppercase">Maintenance</span>
                                 <span class="skill-tag px-2 py-1 font-mono uppercase">Python</span>
-                                <span class="skill-tag px-2 py-1 font-mono uppercase">Gemini AI</span>
+                                <span class="skill-tag px-2 py-1 font-mono uppercase">Cyber Defense</span>
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -234,7 +277,7 @@
                             <p class="text-sm text-gray-500 italic font-light">Mahasarakham Technical College</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            
+                            <span class="text-[10px] text-gray-600 font-mono">GRADE_STATUS:</span>
                             <span class="text-xs font-mono border border-orange-900 px-3 py-1 text-orange-500 shadow-[0_0_5px_rgba(255,140,0,0.3)]">GPA 4.0</span>
                         </div>
                     </div>
@@ -245,9 +288,69 @@
 
         <!-- Footer -->
         <footer class="mt-12 text-center text-gray-700 text-[10px] uppercase tracking-[0.3em] font-mono py-8 border-t border-orange-900/20">
-            System Status: <span class="text-orange-500">Active</span> | Data Node: <span class="text-orange-500">Secure</span> | <span class="text-gray-800">Uptime: 100%</span>
+            System Status: <span class="text-orange-500">Active</span> | Data Node: <span class="text-orange-500">Encrypted</span> | <span class="text-gray-800">Deflection Mode: Enabled</span>
         </footer>
     </div>
+
+    <script>
+        // --- Cybersecurity Simulation System ---
+        let clickCount = 0;
+        let lastClickTime = Date.now();
+        const securityAlert = document.getElementById('security-alert');
+        const trafficMonitor = document.getElementById('traffic-monitor');
+        const threatLevel = document.getElementById('threat-level');
+
+        // 1. Anti-DDoS Simulation (Rate Limiting)
+        document.addEventListener('click', () => {
+            const now = Date.now();
+            if (now - lastClickTime < 200) { // Too fast!
+                clickCount++;
+            } else {
+                clickCount = Math.max(0, clickCount - 1);
+            }
+            lastClickTime = now;
+
+            if (clickCount > 5) {
+                triggerSecurityAlert('DDoS_ATTACK_DETECTED', 'CRITICAL');
+            }
+        });
+
+        // 2. Simulated Firewall Monitoring
+        setInterval(() => {
+            if (clickCount === 0) {
+                trafficMonitor.innerText = 'TRAFFIC: STABLE';
+                trafficMonitor.className = 'text-green-500';
+                threatLevel.innerText = 'THREAT_LEVEL: NULL';
+                threatLevel.className = 'text-gray-500';
+            } else if (clickCount > 0 && clickCount <= 5) {
+                trafficMonitor.innerText = 'TRAFFIC: UNUSUAL';
+                trafficMonitor.className = 'text-yellow-500 font-bold';
+            }
+        }, 1000);
+
+        function triggerSecurityAlert(msg, level) {
+            securityAlert.style.display = 'block';
+            threatLevel.innerText = `THREAT_LEVEL: ${level}`;
+            threatLevel.className = 'text-red-500 font-bold animate-bounce';
+            trafficMonitor.innerText = `ALERT: ${msg}`;
+            trafficMonitor.className = 'text-red-500 font-bold';
+
+            setTimeout(() => {
+                securityAlert.style.display = 'none';
+                clickCount = 0;
+            }, 2000);
+        }
+
+        // 3. XSS/SQL Injection Simulation Guard
+        // In a real scenario, we would sanitize inputs. Here we simulate detection.
+        window.addEventListener('keydown', (e) => {
+            if (e.key === '<' || e.key === '>' || e.key === "'") {
+                console.warn('Security Guard: Malicious characters filtered.');
+            }
+        });
+
+        console.log("%c [FIREWALL] System initialized. Nanthakon's data is protected. ", "background: #ff8c00; color: #000; font-weight: bold;");
+    </script>
 
 </body>
 </html>
